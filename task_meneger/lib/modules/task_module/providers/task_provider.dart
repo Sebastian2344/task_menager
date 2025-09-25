@@ -64,4 +64,14 @@ class TaskProvider extends ChangeNotifier{
     _tasks.sort((a, b) => a.deadline.compareTo(b.deadline));
     notifyListeners();
   }
+
+  @visibleForTesting
+  void setTasks(List<Task> tasks) {
+    _tasks = tasks;
+  }
+
+  @visibleForTesting
+  void addTasklist(Task task) {
+    _tasks.add(task);
+  }
 }
