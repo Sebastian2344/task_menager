@@ -36,8 +36,8 @@ class MyHomePage extends StatelessWidget {
         children: [GetTasks(), StatsPage()],
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          borderRadius: const BorderRadius.only(
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
             topLeft: Radius.circular(24),
             topRight: Radius.circular(24),
           ),

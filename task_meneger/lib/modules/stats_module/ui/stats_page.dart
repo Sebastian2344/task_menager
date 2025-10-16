@@ -25,13 +25,13 @@ class StatsPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildStatCard(
+              StatCard(
                 icon: Icons.task,
                 title: 'Zadania do wykonania',
                 selector: (stats) => stats.pending,
                 color: Colors.orange,
               ),
-              _buildStatCard(
+              StatCard(
                 icon: Icons.done,
                 title: 'Wykonane zadania',
                 selector: (stats) => stats.completed,
@@ -42,13 +42,13 @@ class StatsPage extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _buildStatCard(
+              StatCard(
                 icon: Icons.star,
                 title: 'Najbardziej produktywny dzień',
                 selector: (stats) => stats.productiveWeekdayName,
                 color: Colors.blue,
               ),
-              _buildStatCard(
+              StatCard(
                 icon: Icons.bar_chart,
                 title: 'Liczba zadań w tym dniu',
                 selector: (stats) => stats.maxTasksInWeekday,
@@ -62,18 +62,25 @@ class StatsPage extends StatelessWidget {
   }
 }
 
-Widget _buildStatCard({
-  required IconData icon,
-  required String title,
-  required Object Function(StatsProvider) selector,
-  required Color color,
-}) {
-  return Card(
+class StatCard extends StatelessWidget {
+  const StatCard({super.key, required this.icon,
+  required this.title,
+  required this.selector,
+  required this.color,});
+
+  final IconData icon;
+  final String title;
+  final Object Function(StatsProvider) selector;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
     elevation: 5,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     child: Container(
-      width: 160,
-      height: 160,
+      width: MediaQuery.of(context).size.width * 0.4,
+      height: MediaQuery.of(context).size.height * 0.4,
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
@@ -113,4 +120,5 @@ Widget _buildStatCard({
       ),
     ),
   );
+  }
 }
