@@ -1,16 +1,22 @@
 # task_meneger
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Aplikacja do zarządzania zadaniami.
+Funkcje:
+  tworzenie,usuwanie,edycja zadań
+  wyświetlanie wykonanych i do wykonania zaadań
+  informacje o najbardziej produktywnym dniu w tygodniu,
+  wyświetlanie ilości wykonanych i do wykonania zadań
+  notyfikacje lokalne
+Testy:
+  jednostkowe,
+  widget testy
+Biblioteki:
+  sqflite: ^2.4.2,
+  provider: ^6.1.5,
+  path: ^1.9.1,
+  flutter_local_notifications: ^19.4.0,
+  permission_handler: ^12.0.1,
+  timezone: ^0.10.1,
+  mocktail:
+  flutter_test:
+  
