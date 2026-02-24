@@ -17,13 +17,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+       # 2. Instalacja Javy (Wymagana przez Android toolchain do budowy APK/AAB)
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '17' # Wersja 17 jest zalecana dla nowszych wersji Gradle
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
-
+      # 3. Instalacja Fluttera
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x' # Automatycznie weźmie najnowszą stabilną w gałęzi 3
+          channel: 'stable'
+          cache: true # Włącza cacheowanie, co mocno przyspiesza kolejne buildy
+          
       - name: Install dependencies
         run: flutter pub get
 
