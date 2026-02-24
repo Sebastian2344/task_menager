@@ -28,13 +28,15 @@ class TaskProvider extends ChangeNotifier{
   }
 
   Future<void> realisionTask(Task task,bool val) async {
-    task = task.copyWith(isCompleted: val, realisationDate: DateTime.now());
     if (val) {
+      task = task.copyWith(isCompleted: val, realisationDate: DateTime.now());
       await notificationService.cancel(task.id!);
     } else {
+      task = task.copyWith(isCompleted: val, realisationDate: null);
       await notificationService.schedule(task.id!,task.title,task.description,task.deadline.subtract(Duration(minutes: 15)));
     }
     await _repo.updateTask(task);
+    _tasks = _tasks.map((t) => t.id == task.id ? task : t).toList();
     notifyListeners();
   }
 

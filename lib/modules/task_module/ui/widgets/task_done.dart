@@ -66,7 +66,7 @@ class TaskDone extends StatelessWidget {
                   context.read<StatsProvider>().updateTaskStatus(
                     context
                         .read<TaskProvider>()
-                        .upcomingTasks
+                        .completedTasks
                         .firstWhere((element) => element.id == task.id)
                   );
                 }

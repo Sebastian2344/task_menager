@@ -68,7 +68,7 @@ class TaskTodo extends StatelessWidget {
               await context.read<TaskProvider>().realisionTask(task, value!);
               if (context.mounted) {
                 context.read<StatsProvider>().updateTaskStatus(
-                      context.read<TaskProvider>().completedTasks.firstWhere((e) => e.id == task.id),
+                      context.read<TaskProvider>().upcomingTasks.firstWhere((e) => e.id == task.id),
                     );
               }
             },

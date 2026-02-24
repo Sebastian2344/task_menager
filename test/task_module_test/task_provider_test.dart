@@ -51,15 +51,35 @@ void main() {
 
   test('realisationTask kończy task i cancels notification', () async {
     final task = Task(id: 1, title: 'T', description: '', deadline: DateTime.now(), isCompleted: false);
-
+    provider.addTasklist(task); // dodajemy do listy prywatnej do testu
     when(() => mockRepo.updateTask(any())).thenAnswer((_) async => {});
     when(() => mockNotification.cancel(any())).thenAnswer((_) async => {});
     when(() => mockNotification.schedule(any(), any(), any(), any())).thenAnswer((_) async => {});
 
     await provider.realisionTask(task, true);
 
-    expect(task.isCompleted, true);
+    expect(provider.completedTasks.length, 1);
+    expect(provider.upcomingTasks.isEmpty, true);
+    expect(provider.completedTasks.first.isCompleted, true);
+    expect(provider.completedTasks.first.realisationDate, isNotNull);
     verify(() => mockNotification.cancel(any())).called(1);
+    verify(() => mockRepo.updateTask(any())).called(1);
+  });
+
+  test('realisationTask oznacza task jako niezakończony i scheduluje powiadomienie', () async {
+    final task = Task(id: 1, title: 'T', description: '', deadline: DateTime.now(), isCompleted: true);
+    provider.addTasklist(task); // dodajemy do listy prywatnej do testu
+    when(() => mockRepo.updateTask(any())).thenAnswer((_) async => {});
+    when(() => mockNotification.cancel(any())).thenAnswer((_) async => {});
+    when(() => mockNotification.schedule(any(), any(), any(), any())).thenAnswer((_) async => {});
+
+    await provider.realisionTask(task, false);
+
+    expect(provider.completedTasks.length, 0);
+    expect(provider.upcomingTasks.length, 1);
+    expect(provider.upcomingTasks.first.isCompleted, false);
+    expect(provider.upcomingTasks.first.realisationDate, isNull);
+    verify(() => mockNotification.schedule(any(), any(), any(), any())).called(1);
     verify(() => mockRepo.updateTask(any())).called(1);
   });
 
