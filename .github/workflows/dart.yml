@@ -48,3 +48,12 @@ jobs:
       # want to change this to 'flutter test'
       - name: Run tests
         run: flutter test
+
+      - name: build apk
+        run: flutter build apk --release
+
+      - name: upload apk
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
