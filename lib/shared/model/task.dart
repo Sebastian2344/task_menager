@@ -1,12 +1,12 @@
 class Task {
-  int? id;
-  String title;
-  String? description;
-  bool isCompleted;
-  DateTime deadline;
-  DateTime? realisationDate;
+  final int? id;
+  final String title;
+  final String? description;
+  final bool isCompleted;
+  final DateTime deadline;
+  final DateTime? realisationDate;
 
-  Task({
+  const Task({
     this.id,
     required this.title,
     required this.deadline,
@@ -14,6 +14,24 @@ class Task {
     this.realisationDate,
     this.description,
   });
+
+  Task copyWith({
+    int? id,
+    String? title,
+    String? description,
+    bool? isCompleted,
+    DateTime? deadline,
+    DateTime? realisationDate,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      isCompleted: isCompleted ?? this.isCompleted,
+      deadline: deadline ?? this.deadline,
+      realisationDate: realisationDate ?? this.realisationDate,
+    );
+  }
 
   factory Task.fromJson(Map<String, Object?> object) {
     return Task(

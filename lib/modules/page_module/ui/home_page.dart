@@ -33,7 +33,7 @@ class MyHomePage extends StatelessWidget {
       ),
       body: IndexedStack(
         index: context.watch<PageProvider>().currentPage,
-        children: [GetTasks(), StatsPage()],
+        children: const [GetTasks(), StatsPage()],
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(

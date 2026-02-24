@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:task_meneger/modules/stats_module/providers/stats_provider.dart';
-import 'package:task_meneger/shared/model/task.dart';
 import 'package:task_meneger/modules/task_module/providers/task_provider.dart';
 
 class TaskDone extends StatelessWidget {
-  final Task task;
-  const TaskDone({super.key, required this.task});
+  final int index;
+  const TaskDone({super.key, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    final task = context.read<TaskProvider>().completedTasks[index];
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 3),
+      padding: const EdgeInsets.symmetric(vertical: 3),
       child: Dismissible(
         key: ValueKey(task.id),
         background: Container(

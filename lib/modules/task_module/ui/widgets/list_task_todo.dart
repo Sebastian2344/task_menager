@@ -10,9 +10,9 @@ class ListTaskTodo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Consumer<TaskProvider>(
-        builder: (context, provider, child) {
-          final tasksId = provider.upcomingTasksIds;
+      child: Selector<TaskProvider, List<int?>>(
+        selector: (context, provider) => provider.upcomingTasksIds,
+        builder: (context, tasksId, child) {
           return ListView.builder(
             itemCount: tasksId.length,
             itemBuilder: (context, index) {

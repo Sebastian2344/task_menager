@@ -8,12 +8,14 @@ class ListTaskDone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tasks = context.watch<TaskProvider>().completedTasks;
+    final tasksLength = context.select<TaskProvider, int>(
+      (provider) => provider.completedTasks.length,
+    );
     return Expanded(
       child: ListView.builder(
-        itemCount: tasks.length,
+        itemCount: tasksLength,
         itemBuilder: (context, index) {      
-          return TaskDone(task:tasks[index]);
+          return TaskDone(index:index);
         },
       ),
     );
