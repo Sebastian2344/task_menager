@@ -22,7 +22,7 @@ void main() {
     registerFallbackValue(DateTime.now());
   });
 
-  Widget _wrapWithProviders(Widget child) {
+  Widget wrapWithProviders(Widget child) {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<TaskProvider>.value(value: mockTaskProvider),
@@ -36,7 +36,7 @@ void main() {
     testWidgets('CreateTask shows all required fields and buttons', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrapWithProviders(const CreateTask()));
+      await tester.pumpWidget(wrapWithProviders(const CreateTask()));
       await tester.pumpAndSettle();
 
       expect(find.text('Dodaj nowe zadanie'), findsOneWidget);
@@ -59,7 +59,7 @@ void main() {
     testWidgets('Form validation shows error when title is empty', (
       WidgetTester tester,
     ) async {
-      await tester.pumpWidget(_wrapWithProviders(const CreateTask()));
+      await tester.pumpWidget(wrapWithProviders(const CreateTask()));
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Zapisz'));
@@ -112,7 +112,7 @@ void main() {
 
     testWidgets('Cancel button pops the dialog', (WidgetTester tester) async {
       await tester.pumpWidget(
-        _wrapWithProviders(
+        wrapWithProviders(
           Builder(
             builder: (context) {
               return ElevatedButton(

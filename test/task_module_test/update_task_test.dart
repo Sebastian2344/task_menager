@@ -26,7 +26,7 @@ void main() {
     registerFallbackValue(DateTime.now());
   });
 
-  Widget _wrapWithProviders(Widget child) {
+  Widget wrapWithProviders(Widget child) {
     return ChangeNotifierProvider<TaskProvider>.value(
       value: mockTaskProvider,
       child: MaterialApp(
@@ -37,7 +37,7 @@ void main() {
   }
 
   testWidgets('UpdateTask shows initial task data correctly', (tester) async {
-    await tester.pumpWidget(_wrapWithProviders(UpdateTask(task: testTask)));
+    await tester.pumpWidget(wrapWithProviders(UpdateTask(task: testTask)));
     await tester.pumpAndSettle();
 
     expect(find.text('Edytuj zadanie'), findsOneWidget);
@@ -50,7 +50,7 @@ void main() {
   });
 
   testWidgets('Validation shows error when title is empty', (tester) async {
-    await tester.pumpWidget(_wrapWithProviders(UpdateTask(task: testTask)));
+    await tester.pumpWidget(wrapWithProviders(UpdateTask(task: testTask)));
     await tester.pumpAndSettle();
 
     await tester.enterText(find.widgetWithText(TextFormField, 'Nazwa zadania'), '');
@@ -65,7 +65,7 @@ void main() {
     when(() => mockTaskProvider.updateTasks(any(), any(), any(), any(), any()))
         .thenAnswer((_) async {});
 
-    await tester.pumpWidget(_wrapWithProviders(UpdateTask(task: testTask)));
+    await tester.pumpWidget(wrapWithProviders(UpdateTask(task: testTask)));
     await tester.pumpAndSettle();
 
     await tester.enterText(
@@ -94,7 +94,7 @@ void main() {
 
   testWidgets('Cancel button pops dialog', (tester) async {
     await tester.pumpWidget(
-      _wrapWithProviders(
+      wrapWithProviders(
         Builder(builder: (context) {
           return ElevatedButton(
             onPressed: () {
