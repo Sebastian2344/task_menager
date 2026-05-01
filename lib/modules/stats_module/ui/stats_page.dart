@@ -80,7 +80,7 @@ class StatCard extends StatelessWidget {
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     child: Container(
       width: MediaQuery.of(context).size.width * 0.4,
-      height: MediaQuery.of(context).size.height * 0.4,
+      height: MediaQuery.of(context).size.height * 0.3,
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),

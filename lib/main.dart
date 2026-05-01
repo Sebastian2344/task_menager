@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:task_meneger/modules/task_module/data/repo/task_repo.dart';
 import 'package:task_meneger/modules/task_module/data/services/notification_service.dart';
@@ -11,8 +14,10 @@ import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  final notificationService = NotificationService(FlutterLocalNotificationsPlugin());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  final notificationService = NotificationService(
+    FlutterLocalNotificationsPlugin(),
+  );
   await notificationService.init();
   await notificationService.requestPermissions();
 
@@ -25,10 +30,11 @@ void main() async {
           create: (context) => PageProvider(),
         ),
         ChangeNotifierProvider<TaskProvider>(
-          create: (context) => TaskProvider(TaskRepo(TaskDb.instance), notificationService)
+          create: (context) =>
+              TaskProvider(TaskRepo(TaskDb.instance), notificationService),
         ),
         ChangeNotifierProvider<StatsProvider>(
-          create: (context) => StatsProvider()
+          create: (context) => StatsProvider(),
         ),
       ],
       builder: (context, _) => const MyApp(),
@@ -43,6 +49,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            // Globalne ograniczenie skalowania tekstu od 1.0 do 1.3
+            textScaler: MediaQuery.of(
+              context,
+            ).textScaler.clamp(minScaleFactor: 1.0, maxScaleFactor: 1.3),
+          ),
+          child: child!,
+        );
+      },
       title: 'Menedżer zadań',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple[700]!),
